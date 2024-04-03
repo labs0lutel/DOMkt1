@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    body {
+        background-color: white;
+        text-align: left;
+    }
+    table {
+        border-collapse: collapse;
+        margin: 20px auto;
+        border: 2px solid black;
+    }
+    td {
+        width: 50px;
+        height: 50px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+<button onclick="addNumber()">Добавить число</button>
+<table id="randomTable"></table>
+
+<script>
+    let numbers = Array.from({length: 30}, () => Math.floor(Math.random() * 100));
+    let table = document.getElementById("randomTable");
+    let index = 0;
+
+    for (let i = 0; i < 5; i++) {
+        let row = document.createElement("tr");
+        for (let j = 0; j < 6; j++) {
+            let cell = document.createElement("td");
+            cell.textContent = numbers[index];
+            row.appendChild(cell);
+            if (numbers[index] >= 50) {
+                cell.style.backgroundColor = "orange";
+            }
+            index++;
+        }
+        table.appendChild(row);
+    }
+
+    function addNumber() {
+        let newNumber = Math.floor(Math.random() * 100);
+        numbers.push(newNumber);
+        let rowIndex = Math.floor((index % 30) / 6);
+        let cellIndex = (index % 30) % 6;
+        let cell = table.rows[rowIndex].cells[cellIndex];
+        cell.textContent = newNumber;
+        if (newNumber >= 50) {
+            cell.style.backgroundColor = "orange";
+        } else {
+            cell.style.backgroundColor = "";
+        }
+        index++;
+    }
+</script>
+</body>
+</html>
